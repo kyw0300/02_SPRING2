@@ -2,9 +2,7 @@ package kr.or.ddit;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,6 +47,8 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
+		
+		
 		
 		model.addAttribute("serverTime", formattedDate );
 		
@@ -309,9 +309,9 @@ public class HomeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return entity;
+		return entity; 
 	}
-
+	
 	// 파일의 데이터를 브라우저 다운로드 받도록 한다.
 	@RequestMapping(value = "/goHome1102", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> goHome1102() throws Exception {
