@@ -268,7 +268,7 @@
 	<p>12) 폼 체크박스 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.</p>
 	<form action="/registerCheckbox04" method="post">
 		developer : <br/>
-		<input type="checkbox" name="developer" value="Y">Sports<br/>
+		<input type="checkbox" name="developer" value="Y"><br/>
 		<input type="submit" value="registerCheckbox04"/><br/>
 	</form><br/>
 	

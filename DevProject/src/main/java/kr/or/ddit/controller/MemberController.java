@@ -292,6 +292,7 @@ public class MemberController {
 	}
 	
 	// 6) 복수 선택이 가능한 폼 셀렉트 박스 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.
+	// 복수 값을 String으로 받으면 사이에 ","가 들어감
 	@RequestMapping(value = "/registerMultiSelect01", method = RequestMethod.POST)
 	public String registerMultiSelect01(String cars) {
 		log.info("registerMultiSelect01() 실행...!");
@@ -335,6 +336,7 @@ public class MemberController {
 	}
 	
 	// 9) 폼 체크박스 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.
+	// 복수 값을 String으로 받으면 사이에 ","가 들어감
 	@RequestMapping(value = "/registerCheckbox01", method = RequestMethod.POST)
 	public String registerCheckbox01(String hobby) {
 		log.info("registerCheckbox01() 실행...!");
@@ -379,6 +381,7 @@ public class MemberController {
 	}
 	
 	// 12) 폼 체크박스 요소값을 기본 데이터 타입인 문자열 타입 매개변수로 처리한다.
+	// 체크하지 않으면 null이 넘어온다.
 	@RequestMapping(value = "/registerCheckbox04", method = RequestMethod.POST)
 	public String registerCheckbox04(String developer) {
 		// 값이 존재하면 value속성 안에 들어있는 값이 넘어오고
@@ -399,6 +402,7 @@ public class MemberController {
 		return "success";
 	}
 	
+	// ★★★★★
 	// 14) 폼 텍스트 필드 요소값을 자바빈즈 매개변수로 처리한다.
 	@RequestMapping(value = "/registerAddress", method = RequestMethod.POST)
 	public String registerAddress(Address address) {
@@ -413,6 +417,7 @@ public class MemberController {
 		return "success";
 	}
 	
+	// ★★★★★
 	// 15) 폼 텍스트 필드 요소값을 중첩된 자바빈즈 매개변수로 처리한다.
 	@RequestMapping(value = "/registerUserAddress", method = RequestMethod.POST)
 	public String registerUserAddress(Member member) {
@@ -433,13 +438,13 @@ public class MemberController {
 	public String registerUserCardList(Member member) {
 		log.info("registerUserCardList() 실행...!");
 		
-		List<Card> carList = member.getCardList();
+		List<Card> cardList = member.getCardList();
 		
-		if(carList != null) {
-			log.info("cardList.size() : " + carList.size());
+		if(cardList != null) {
+			log.info("cardList.size() : " + cardList.size());
 			
-			for(int i=0; i<carList.size(); i++) {
-				Card card = carList.get(i);
+			for(int i=0; i<cardList.size(); i++) {
+				Card card = cardList.get(i);
 				log.info("card.getNo() : " + card.getNo());
 				log.info("card.getValidMonth() : " + card.getValidMonth());
 			}
@@ -676,6 +681,7 @@ public class MemberController {
 	}
 	
 	// 6) 여러 개의 파일업로드를 폼 파일 요소값을 MultipartFile 타입의 요소를 가진 리스트 컬렉션 타입 매개변수로 처리한다.
+	// 에러
 	@RequestMapping(value = "/registerFile06", method = RequestMethod.POST)
 	public String registerFile06(List<MultipartFile> pictureList) {
 		log.info("registerFile06() 실행...!");
