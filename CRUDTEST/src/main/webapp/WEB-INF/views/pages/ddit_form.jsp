@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +12,7 @@
   <title>
     대덕인재개발원 CRUD 연습
   </title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <!-- Nucleo Icons -->
@@ -26,6 +28,13 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
+
+<c:set value="${sessionScope.member }" var="loginMem"/>
+<c:set value="등록" var="name"/>
+<c:if test="${status eq 'u' }">
+	<c:set value="수정" var="name"/>
+</c:if>
+
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -56,32 +65,27 @@
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           </div>
           <ul class="navbar-nav  justify-content-end">
-            <li class="nav-item d-flex align-items-center">
-              <a href="" class="nav-link text-body font-weight-bold px-0">
-                <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">로그인</span>
-              </a>
-            </li>
+            
 			<li class="nav-item d-flex align-items-center">　</li>
 			<li class="nav-item">
 			  <div class="d-flex align-items-center justify-content-between">
 				<div class="avatar-group mt-2 avatar avatar-xs rounded-circle">
-				  <img alt="Image placeholder" src="../assets/img/team-1.jpg" style="width:40px;">
+				  <img alt="Image placeholder" src="../assets/img/정대만.jpg" style="width:40px;">
 				</div>
 			  </div>
 			</li>
 			<li class="nav-item d-flex align-items-center">　</li>
 			<li class="nav-item d-flex align-items-center">
 				<div class="d-flex flex-column justify-content-center">
-				  <h6 class="mb-0 text-sm">304호반장</h6>
-				  <p class="text-xs text-secondary mb-0">Leader-Park@ddit.or.kr</p>
+				  <h6 class="mb-0 text-sm">${loginMem.memName }</h6>
+				  <p class="text-xs text-secondary mb-0">${loginMem.memEmail }</p>
 				</div>
 			</li>
 			<li class="nav-item d-flex align-items-center">　</li>
 			<li class="nav-item d-flex align-items-center">
-              <a href="" class="nav-link text-body font-weight-bold px-0">
+              <a href="/member/${empty loginMem ? 'signin' : 'logout'}" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">로그아웃</span>
+                <span class="d-sm-inline d-none">${empty loginMem ? '로그인' : '로그아웃'}</span>
               </a>
             </li>
 			<li class="nav-item d-flex align-items-center">　</li>
@@ -101,25 +105,41 @@
         <span class="mask  bg-gradient-secondary opacity-6"></span>
       </div>
       <div class="card card-body mx-3 mx-md-4 mt-n6">
+      <form action="/board/insert" method="post" id="boardForm">
+      	<c:if test="${status eq 'u'}">
+      		<input type="hidden" name="boNo" value="${board.boNo }">
+      	</c:if>
+      	boNo : ${board.boNo }
         <div class="row gx-4 mb-2">
 		  <div class="col-md-12">
 			<div class="input-group input-group-outline mb-4">
-			  <label class="form-label">제목을 입력해주세요.</label>
-			  <input type="text" class="form-control">
+			  <label class="form-label"></label>
+			  <input type="text" class="form-control" id="boTitle" name="boTitle" value="${board.boTitle }" placeholder="제목을 입력해주세요.">
 			</div>
 		  </div>
 		  <div class="col-md-12">
 		    <div class="input-group input-group-outline mb-4">
-			  <textarea class="form-control" rows="20"></textarea>
+			  <textarea class="form-control" rows="20" id="boContent" name="boContent">${board.boContent}</textarea>
 		    </div>
 		  </div>
-		  <div class="col-md-12">　</div>
+		  <div class="col-md-12"></div>
 		  <div class="col-md-12">
-		    <button type="button" class="btn btn-primary">등록</button>
-		    <button type="button" class="btn btn-danger">취소</button>
-		    <button type="button" class="btn btn-info">목록</button>
+		  
+		  <input type="button" class="btn btn-primary" id="formBtn" value="${name}" onclick="updateBoard()">
+		  <c:if test="${status eq 'u'}">
+		  	<a href="/board/detail?boNo=${board.boNo}">
+		  		<button type="button" class="btn btn-danger">취소</button>
+		  	</a>
+		  </c:if>
+		  <c:if test="${status ne 'u'}">
+		  	<a href="/board/list">
+		  		<button type="button" class="btn btn-info">목록</button>
+		  	</a>
+		  </c:if>
+		    
 		  </div>
         </div>
+      </form>
       </div>
     </div>
   </main>
@@ -172,6 +192,7 @@
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="/resources/ckeditor/ckeditor.js"></script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -186,5 +207,47 @@
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
 </body>
+<script type="text/javascript">
+$(function(){
+	CKEDITOR.replace("boContent");
+	CKEDITOR.config.allowedContent = true;
+})
 
+function updateBoard(){
+	var title = document.querySelector("#boTitle").value;
+// 	var content = document.querySelector("#boContent").value;
+	var content = CKEDITOR.instances.boContent.getData();
+	var boardForm = document.querySelector("#boardForm");
+	
+	if(title == "") {
+		alert("제목을 입력해주세요!");
+		$("#boTitle").focus();
+		return false;
+	}
+	
+	// 내용을 입력하지 않았을 때에 대한 필터
+	if(content == "") {
+		alert("내용을 입력해주세요!");
+		$("#boContent").focus();
+		return false;
+	}
+	
+	console.log(document.querySelector("#formBtn").value);
+	var formBtn = document.querySelector("#formBtn");
+	if(formBtn.value == "수정") {
+		$(boardForm.setAttribute("action", "/board/update"));  // 수정을 하러 가기 위해 url경로를 틀어준다.
+	}
+	boardForm.submit();
+	
+// 	console.log($(this).val());
+	
+// 	if($(this).val() == "수정") {
+// 		$("#boardForm").attr("action", "/board/update");  // 수정을 하러 가기 위해 url경로를 틀어준다.
+// 	}
+	
+	// 제목, 내용을 누락하지 않았을 경우, 최종 submit 이벤트가 발생한다.
+// 	$("#boardForm").submit();
+	
+}
+</script>
 </html>

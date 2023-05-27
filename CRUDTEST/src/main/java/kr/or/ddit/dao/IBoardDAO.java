@@ -10,4 +10,13 @@ public interface IBoardDAO {
 	int selectBoardCount(PaginationInfoVO<BoardVO> pagingVO);
 
 	List<BoardVO> selectBoardList(PaginationInfoVO<BoardVO> pagingVO);
+
+	void incrementHit(int bono);
+
+	BoardVO selectBoard(int bono);
+
+	int deleteBoard(int boNo);
+
+	int updateBoard(BoardVO board);
+
 }

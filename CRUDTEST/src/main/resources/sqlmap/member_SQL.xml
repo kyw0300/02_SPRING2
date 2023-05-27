@@ -13,7 +13,7 @@
 		    MEM_PHONE,
 		    MEM_EMAIL,
 		    MEM_AGREE)
-		values (SEQ_MEMBER.nextval, #{mem_id}, #{mem_pw}, #{mem_name},#{mem_gender},#{mem_phone},#{mem_email},#{mem_agree})
+		values (SEQ_MEMBER.nextval, #{memId}, #{memPw}, #{memName},#{memGender},#{memPhone},#{memEmail},#{memAgree})
 	</insert>
 	
 	<select id="loginCheck" parameterType="memberVO" resultType="memberVO">
@@ -27,6 +27,6 @@
 			MEM_EMAIL,
 			MEM_AGREE
 		from member
-		where mem_id = #{mem_id} and mem_pw = #{mem_pw}
+		where mem_id = #{memId} and mem_pw = #{memPw}
 	</select>
 </mapper>

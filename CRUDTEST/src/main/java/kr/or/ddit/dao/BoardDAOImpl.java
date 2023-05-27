@@ -9,8 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.vo.BoardVO;
 import kr.or.ddit.vo.PaginationInfoVO;
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
+@Slf4j
 public class BoardDAOImpl implements IBoardDAO {
 
 	@Inject
@@ -26,4 +28,23 @@ public class BoardDAOImpl implements IBoardDAO {
 		return sqlSession.selectList("Board.selectBoardList",pagingVO);
 	}
 
+	@Override
+	public void incrementHit(int bono) {
+		sqlSession.update("Board.incrementHit",bono);
+	}
+
+	@Override
+	public BoardVO selectBoard(int bono) {
+		return sqlSession.selectOne("Board.selectBoard",bono);
+	}
+
+	@Override
+	public int deleteBoard(int boNo) {
+		return sqlSession.delete("Board.deleteBoard",boNo);
+	}
+
+	@Override
+	public int updateBoard(BoardVO board) {
+		return sqlSession.update("Board.updateBoard",board);
+	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +27,8 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
+<c:set value="${sessionScope.member }" var="loginMem"/>
+<c:set value="${detailBoard }" var="board"/>
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -56,32 +59,34 @@
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           </div>
           <ul class="navbar-nav  justify-content-end">
-            <li class="nav-item d-flex align-items-center">
-              <a href="" class="nav-link text-body font-weight-bold px-0">
-                <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">로그인</span>
-              </a>
-            </li>
 			<li class="nav-item d-flex align-items-center">　</li>
 			<li class="nav-item">
 			  <div class="d-flex align-items-center justify-content-between">
 				<div class="avatar-group mt-2 avatar avatar-xs rounded-circle">
-				  <img alt="Image placeholder" src="../assets/img/team-1.jpg" style="width:40px;">
+				  <img alt="Image placeholder" src="../assets/img/정대만.jpg" style="width:40px;">
 				</div>
 			  </div>
 			</li>
 			<li class="nav-item d-flex align-items-center">　</li>
 			<li class="nav-item d-flex align-items-center">
 				<div class="d-flex flex-column justify-content-center">
-				  <h6 class="mb-0 text-sm">304호반장</h6>
-				  <p class="text-xs text-secondary mb-0">Leader-Park@ddit.or.kr</p>
+				  <h6 class="mb-0 text-sm">${loginMem.memName }</h6>
+				  <p class="text-xs text-secondary mb-0">${loginMem.memEmail }</p>
 				</div>
 			</li>
 			<li class="nav-item d-flex align-items-center">　</li>
+			
+            <li class="nav-item d-flex align-items-center">
+              <a href="/member/${empty loginMem ? 'signin' : 'logout'}" class="nav-link text-body font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">${empty loginMem ? '로그인' : '로그아웃'}</span>
+              </a>
+            </li>
+            <li class="nav-item d-flex align-items-center">　</li>
 			<li class="nav-item d-flex align-items-center">
               <a href="" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">로그아웃</span>
+                <span class="d-sm-inline d-none">마이페이지</span>
               </a>
             </li>
           </ul>
@@ -97,9 +102,9 @@
         <div class="row gx-4 mb-2">
 		  <div class="col-md-8">
 		    <div class="h-100">
-              <h5 class="mb-1">제목을 입력해주세요.</h5>
+              <h5 class="mb-1">${board.boTitle }</h5>
               <p class="mb-0 font-weight-normal text-sm">
-                작성일 / 조회수
+                	${board.boDate } / ${board.boHit }
               </p>
             </div>
 		  </div>
@@ -111,14 +116,17 @@
                   <h6 class="mb-0">내용</h6>
                 </div>
                 <div class="card-body p-3">
-				  내용을 입력해주세요.
+				  ${board.boContent }
                 </div>
 				<hr/>
 				<div class="card-footer p-3">
-				  <button type="button" class="btn btn-outline-primary">삭제</button>
-				  <button type="button" class="btn btn-outline-secondary">수정</button>
-				  <button type="button" class="btn btn-outline-success">목록</button>
+				  <button type="button" class="btn btn-outline-primary" onclick="deleteBoard()">삭제</button>
+				  <button type="button" class="btn btn-outline-secondary" onclick="updateForm()">수정</button>
+				  <a href="/board/list"><button type="button" class="btn btn-outline-success">목록</button></a>
 				</div>
+				<form action="/board/updateForm" method="get" id="nFrm">
+					<input type="hidden" name="boNo" value="${board.boNo}">
+				</form>
               </div>
             </div>
         </div>
@@ -188,5 +196,22 @@
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
 </body>
+<script type="text/javascript">
+function deleteBoard(){
+	nFrm = document.querySelector("#nFrm");
+	
+	if(confirm("정말 삭제하시겠습니까?")){
+		nFrm.setAttribute("action", "/board/delete");
+		nFrm.setAttribute("method", "post");
+		nFrm.submit();
+	} else {
+		console.log("삭제 취소");
+	}
+}
 
+function updateForm(){
+	nFrm = document.querySelector("#nFrm");
+	nFrm.submit()
+}
+</script>
 </html>

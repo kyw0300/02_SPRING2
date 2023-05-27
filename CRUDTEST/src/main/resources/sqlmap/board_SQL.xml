@@ -39,4 +39,31 @@
 			where b.rnum >= #{startRow} and b.rnum <= #{endRow}
 		]]>
 	</select>
+	
+	<update id="incrementHit" parameterType="int">
+		update board
+		set
+			bohit = bohit + 1
+		where bono = #{boNo}
+	</update>
+	
+	<select id="selectBoard" parameterType="int" resultType="boardVO">
+		select 
+			bono, botitle, bocontent, bowriter, bodate, bohit
+		from board
+		where bono = #{boNo}
+	</select>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from board where bono = #{boNo}
+	</delete>
+	
+	<update id="updateBoard" parameterType="boardVO">
+		update board
+		set
+			botitle = #{boTitle},
+			bocontent = #{boContent},
+<!-- 			bodate = sysdate -->
+		where bono = #{boNo}
+	</update>
 </mapper>

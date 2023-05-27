@@ -43,11 +43,11 @@ public class MemberController {
 		
 		Map<String , Object> errors = new HashMap<String, Object>();
 		
-		if(StringUtils.isBlank(member.getMem_id())) {
-			errors.put("mem_id", "아이디를 입력해주세요!");
+		if(StringUtils.isBlank(member.getMemId())) {
+			errors.put("memId", "아이디를 입력해주세요!");
 		}
-		if(StringUtils.isBlank(member.getMem_pw())) {
-			errors.put("mem_pw", "비밀번호를 입력해주세요!");
+		if(StringUtils.isBlank(member.getMemPw())) {
+			errors.put("memPw", "비밀번호를 입력해주세요!");
 		}
 		
 		if(errors.size() > 0) {
@@ -83,28 +83,33 @@ public class MemberController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signup(MemberVO member, Model model, RedirectAttributes redirectattribute) {
 		log.info("signup() 실행...!");
+		log.info(member.getMemId());
+		log.info(member.getMemPw());
+		log.info(member.getMemName());
+		log.info(member.getMemPhone());
+		log.info(member.getMemEmail());
 		String goPage = "";
 		Map<String , Object> errors = new HashMap<String, Object>();
 		
-		if(StringUtils.isBlank(member.getMem_id())) {
+		if(StringUtils.isBlank(member.getMemId())) {
 			errors.put("mem_id", "아이디를 입력해주세요!");
 		}
-		if(StringUtils.isBlank(member.getMem_pw())) {
+		if(StringUtils.isBlank(member.getMemPw())) {
 			errors.put("mem_pw", "비밀번호를 입력해주세요!");
 		}
-		if(StringUtils.isBlank(member.getMem_name())) {
+		if(StringUtils.isBlank(member.getMemName())) {
 			errors.put("mem_name", "이름을 입력해주세요!");
 		}
-		if(StringUtils.isBlank(member.getMem_phone())) {
+		if(StringUtils.isBlank(member.getMemPhone())) {
 			errors.put("mem_phone", "핸드폰번호를 입력해주세요!");
 		}
-		if(StringUtils.isBlank(member.getMem_email())) {
+		if(StringUtils.isBlank(member.getMemEmail())) {
 			errors.put("mem_email", "이메일을 입력해주세요!");
 		}
 		
 		if(errors.size() > 0) {
 			model.addAttribute("error","누락된 입력 정보가 존재합니다!");
-//			model.addAttribute("member",member);
+			model.addAttribute("memberVO",member);
 			goPage = "pages/ddit_signup";
 		} else {
 			ServiceResult result = service.insertMember(member);

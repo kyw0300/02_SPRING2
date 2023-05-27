@@ -46,36 +46,36 @@
                   <form action="/member/signup" method="post" role="form" name="signupForm">
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">아이디</label>
-                      <input type="text" class="form-control" name="mem_id" value="${memberVO.mem_id }">
+                      <input type="text" class="form-control" name="memId" value="${memberVO.memId }">
                     </div>
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">비밀번호</label>
-                      <input type="text" class="form-control" name="mem_pw" value="${memberVO.mem_pw }">
+                      <input type="text" class="form-control" name="memPw" value="${memberVO.memPw }">
                     </div>
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">비밀번호 재입력</label>
-                      <input type="text" class="form-control" name="mem_pw2">
+                      <input type="text" class="form-control" name="memPw2">
                     </div>
 					<div class="input-group input-group-outline mb-3">
                       <label class="form-label">이름</label>
-                      <input type="text" class="form-control" name="mem_name" value="${memberVO.mem_name }">
+                      <input type="text" class="form-control" name="memName" value="${memberVO.memName }">
                     </div>
 					<div class="form-check mb-3">
-					  <input class="form-check-input" type="radio" name="mem_gender" id="customRadio1" value="M" checked>
+					  <input class="form-check-input" type="radio" name="memGender" id="customRadio1" value="M" checked>
 					  <label class="custom-control-label" for="customRadio1">남자</label>
-					  <input class="form-check-input" type="radio" name="mem_gender" id="customRadio1" value="F">
+					  <input class="form-check-input" type="radio" name="memGender" id="customRadio1" value="F">
 					  <label class="custom-control-label" for="customRadio1">여자</label>
 					</div>
 					<div class="input-group input-group-outline mb-3">
                       <label class="form-label">핸드폰번호</label>
-                      <input type="text" class="form-control" name="mem_phone" value="${memberVO.mem_phone }">
+                      <input type="text" class="form-control" name="memPhone" value="${memberVO.memPhone }">
                     </div>
 					<div class="input-group input-group-outline mb-3">
                       <label class="form-label">이메일</label>
-                      <input type="text" class="form-control" name="mem_email" value="${memberVO.mem_email }">
+                      <input type="text" class="form-control" name="memEmail" value="${memberVO.memEmail }">
                     </div>
                     <div class="form-check form-switch">
-					  <input class="form-check-input" type="checkbox" id="agreeCheck" name="mem_agree" value="agree">
+					  <input class="form-check-input" type="checkbox" id="agreeCheck" name="memAgree" value="agree">
 					  <label class="form-check-label" for="agreeCheck">개인정보 동의</label>
 					  <a href="../pages/sign-in.html" class="text-primary text-gradient font-weight-bold">
 					    상세보기
@@ -130,27 +130,27 @@ function CheckSignup(){
 	var checkbox = document.getElementById('agreeCheck');
 	
 	
-	if(form.mem_id.value == ""){
+	if(form.memId.value == ""){
 		alert("아이디를 입력해주세요!");
 		form.mem_id.focus();
 		return false;
 	}
-	if(form.mem_pw.value == ""){
+	if(form.memPw.value == ""){
 		alert("비밀번호를 입력해주세요!");
 		form.mem_pw.focus();
 		return false;
 	}
-	if(form.mem_name.value == ""){
+	if(form.memName.value == ""){
 		alert("이름을 입력해주세요!");
 		form.mem_name.focus();
 		return false;
 	}
-	if(form.mem_phone.value == ""){
+	if(form.memPhone.value == ""){
 		alert("핸드폰 번호를 입력해주세요!");
 		form.mem_phone.focus();
 		return false;
 	}
-	if(form.mem_email.value == ""){
+	if(form.memEmail.value == ""){
 		alert("이메일을 입력해주세요!");
 		form.mem_email.focus();
 		return false;
@@ -159,7 +159,7 @@ function CheckSignup(){
 		alert("개인정보 동의를 체크해주세요!");
 		return false;
 	}
-	if(form.mem_pw.value != form.mem_pw2.value){
+	if(form.memPw.value != form.memPw2.value){
 		alert("비밀번호가 일치하지 않습니다!");
 		return false;
 	}

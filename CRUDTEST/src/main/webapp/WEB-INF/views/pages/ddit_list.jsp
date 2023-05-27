@@ -68,8 +68,8 @@
 			<li class="nav-item d-flex align-items-center">　</li>
 			<li class="nav-item d-flex align-items-center">
 				<div class="d-flex flex-column justify-content-center">
-				  <h6 class="mb-0 text-sm">${loginMem.mem_name }</h6>
-				  <p class="text-xs text-secondary mb-0">${loginMem.mem_email }</p>
+				  <h6 class="mb-0 text-sm">${loginMem.memName }</h6>
+				  <p class="text-xs text-secondary mb-0">${loginMem.memEmail }</p>
 				</div>
 			</li>
 			<li class="nav-item d-flex align-items-center">　</li>
@@ -80,7 +80,13 @@
                 <span class="d-sm-inline d-none">${empty loginMem ? '로그인' : '로그아웃'}</span>
               </a>
             </li>
-			
+			<li class="nav-item d-flex align-items-center">　</li>
+			<li class="nav-item d-flex align-items-center">
+              <a href="" class="nav-link text-body font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">마이페이지</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -144,14 +150,14 @@
                   	<c:otherwise>
                   		<c:forEach items="${boardList }" var="board">
 							<tr class="text-center">
-		                      <td>${board.bono }</td>
-		                      <td class="text-dark" onclick="location.href='/board/detail?bono=${board.bono }'">${board.botitle }</td>
-		                      <td>${board.bowriter }</td>
+		                      <td>${board.boNo }</td>
+		                      <td class="text-dark" onclick="location.href='/board/detail?boNo=${board.boNo }'">${board.boTitle }</td>
+		                      <td>${board.boWriter }</td>
 		                      <td>
-		                        <span class="text-dark text-xs font-weight-bold">${board.bodate }</span>
+		                        <span class="text-dark text-xs font-weight-bold">${board.boDate }</span>
 		                      </td>
 							  <td>
-		                        <span class="text-dark text-xs font-weight-bold">${board.bohit }</span>
+		                        <span class="text-dark text-xs font-weight-bold">${board.boHit }</span>
 							  </td>
 		                    </tr>
                   		</c:forEach>

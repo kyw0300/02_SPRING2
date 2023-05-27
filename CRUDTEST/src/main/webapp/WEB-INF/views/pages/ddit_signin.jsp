@@ -52,10 +52,10 @@
               <div class="card-body">
                 <form  action="/member/signin" method="post" role="form" class="text-start" name="loginForm">
                   <div class="input-group input-group-outline my-3">
-                    <input type="text" class="form-control" placeholder="아이디" name="mem_id">
+                    <input type="text" class="form-control" placeholder="아이디" name="memId">
                   </div>
                   <div class="input-group input-group-outline mb-3">
-                    <input type="password" class="form-control" placeholder="비밀번호" name="mem_pw">
+                    <input type="password" class="form-control" placeholder="비밀번호" name="memPw">
                   </div>
                   <div class="text-center">
                     <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2" id="loginBtn">로그인</button>
@@ -79,17 +79,17 @@
 <script type="text/javascript">
 $(function(){
 	$("#loginBtn").on("click", function(){
-		var id = $("input[name=mem_id]").val();
-		var pw = $("input[name=mem_pw]").val();
+		var id = $("input[name=memId]").val();
+		var pw = $("input[name=memPw]").val();
 		
 		if(id == null || id == "") {
 			alert("아이디를 입력해주세요..!");
-			$("input[name=mem_id]").focus();
+			$("input[name=memId]").focus();
 			return false;
 		}
 		if(pw == null || pw == "") {
 			alert("비밀번호를 입력해주세요..!");
-			$("input[name=mem_pw]").focus();
+			$("input[name=memPw]").focus();
 			return false;
 		}
 		
