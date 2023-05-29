@@ -29,6 +29,11 @@
 <body class="g-sidenav-show  bg-gray-200">
 <c:set value="${sessionScope.member }" var="loginMem"/>
 <c:set value="${detailBoard }" var="board"/>
+<c:if test="${not empty msg }">
+	<script>
+		alert("${msg}")
+	</script>
+</c:if>
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -63,7 +68,7 @@
 			<li class="nav-item">
 			  <div class="d-flex align-items-center justify-content-between">
 				<div class="avatar-group mt-2 avatar avatar-xs rounded-circle">
-				  <img alt="Image placeholder" src="../assets/img/정대만.jpg" style="width:40px;">
+				  <img alt="Image placeholder" src="../assets/img/${loginMem.memName}.jpg" style="width:40px; height:40px;">
 				</div>
 			  </div>
 			</li>

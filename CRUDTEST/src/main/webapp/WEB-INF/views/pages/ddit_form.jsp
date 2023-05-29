@@ -70,7 +70,7 @@
 			<li class="nav-item">
 			  <div class="d-flex align-items-center justify-content-between">
 				<div class="avatar-group mt-2 avatar avatar-xs rounded-circle">
-				  <img alt="Image placeholder" src="../assets/img/정대만.jpg" style="width:40px;">
+				  <img alt="Image placeholder" src="../assets/img/${loginMem.memName}.jpg" style="width:40px; height:40px;">
 				</div>
 			  </div>
 			</li>
@@ -109,7 +109,6 @@
       	<c:if test="${status eq 'u'}">
       		<input type="hidden" name="boNo" value="${board.boNo }">
       	</c:if>
-      	boNo : ${board.boNo }
         <div class="row gx-4 mb-2">
 		  <div class="col-md-12">
 			<div class="input-group input-group-outline mb-4">
@@ -125,7 +124,7 @@
 		  <div class="col-md-12"></div>
 		  <div class="col-md-12">
 		  
-		  <input type="button" class="btn btn-primary" id="formBtn" value="${name}" onclick="updateBoard()">
+		  <input type="button" class="btn btn-primary" id="formBtn" value="${name}" onclick="insertOrUpdateBoard()">
 		  <c:if test="${status eq 'u'}">
 		  	<a href="/board/detail?boNo=${board.boNo}">
 		  		<button type="button" class="btn btn-danger">취소</button>
@@ -213,7 +212,7 @@ $(function(){
 	CKEDITOR.config.allowedContent = true;
 })
 
-function updateBoard(){
+function insertOrUpdateBoard(){
 	var title = document.querySelector("#boTitle").value;
 // 	var content = document.querySelector("#boContent").value;
 	var content = CKEDITOR.instances.boContent.getData();
@@ -225,27 +224,25 @@ function updateBoard(){
 		return false;
 	}
 	
-	// 내용을 입력하지 않았을 때에 대한 필터
 	if(content == "") {
 		alert("내용을 입력해주세요!");
 		$("#boContent").focus();
 		return false;
 	}
 	
-	console.log(document.querySelector("#formBtn").value);
 	var formBtn = document.querySelector("#formBtn");
+	console.log(formBtn.value);
 	if(formBtn.value == "수정") {
-		$(boardForm.setAttribute("action", "/board/update"));  // 수정을 하러 가기 위해 url경로를 틀어준다.
+		boardForm.setAttribute("action", "/board/update");
 	}
 	boardForm.submit();
 	
 // 	console.log($(this).val());
 	
 // 	if($(this).val() == "수정") {
-// 		$("#boardForm").attr("action", "/board/update");  // 수정을 하러 가기 위해 url경로를 틀어준다.
+// 		$("#boardForm").attr("action", "/board/update");
 // 	}
 	
-	// 제목, 내용을 누락하지 않았을 경우, 최종 submit 이벤트가 발생한다.
 // 	$("#boardForm").submit();
 	
 }

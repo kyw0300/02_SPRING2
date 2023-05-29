@@ -63,7 +63,18 @@
 		set
 			botitle = #{boTitle},
 			bocontent = #{boContent},
-<!-- 			bodate = sysdate -->
+			bodate = sysdate
 		where bono = #{boNo}
 	</update>
+	
+	<insert id="insertBoard" parameterType="boardVO" useGeneratedKeys="true">
+		<selectKey keyProperty="boNo" order="BEFORE" resultType="int">
+			select seq_board.nextval from dual
+		</selectKey>
+		insert into board(
+			bono, botitle, bocontent, bowriter, bodate
+		) values (
+			#{boNo}, #{boTitle}, #{boContent}, #{boWriter}, sysdate
+		)
+	</insert>
 </mapper>

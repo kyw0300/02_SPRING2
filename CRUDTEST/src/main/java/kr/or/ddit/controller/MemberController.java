@@ -38,9 +38,6 @@ public class MemberController {
 		log.info("signin() 실행...!");
 		String goPage = "";
 		
-//		log.info("id : " + member.getMem_id());
-//		log.info("pw : " + member.getMem_pw());
-		
 		Map<String , Object> errors = new HashMap<String, Object>();
 		
 		if(StringUtils.isBlank(member.getMemId())) {
@@ -70,7 +67,6 @@ public class MemberController {
 				redirectattribute.addFlashAttribute("msg", "존재하지 않는 회원입니다!");
 				goPage = "redirect:/member/signin";
 			}
-			
 		}
 		return goPage;
 	}

@@ -47,4 +47,9 @@ public class BoardDAOImpl implements IBoardDAO {
 	public int updateBoard(BoardVO board) {
 		return sqlSession.update("Board.updateBoard",board);
 	}
+
+	@Override
+	public int insertBoard(BoardVO board) {
+		return sqlSession.insert("Board.insertBoard",board);
+	}
 }

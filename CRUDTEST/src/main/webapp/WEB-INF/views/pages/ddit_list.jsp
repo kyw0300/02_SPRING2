@@ -12,6 +12,7 @@
   <title>
     대덕인재개발원 CRUD 연습
   </title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <!-- Nucleo Icons -->
@@ -61,7 +62,7 @@
 			<li class="nav-item">
 			  <div class="d-flex align-items-center justify-content-between">
 				<div class="avatar-group mt-2 avatar avatar-xs rounded-circle">
-				  <img alt="Image placeholder" src="../assets/img/정대만.jpg" style="width:40px;">
+				  <img alt="Image placeholder" src="../assets/img/${loginMem.memName}.jpg" style="width:40px; height:40px;">
 				</div>
 			  </div>
 			</li>
@@ -103,9 +104,9 @@
             </div>
 			<div class="card-body px-0 pb-2">
 			  <div class="row">
-				<form action="/board/list" class="input-group input-group-outline">
-					<div class="col-md-6">
-					
+				<form action="/board/list" method="post" id="searchForm" class="input-group input-group-outline">
+					<input type="hidden" name="page" id="page" />
+					<div class="col-md-5">
 					</div>
 					<div class="col-md-1">
 					  <div class="input-group input-group-static mb-4">
@@ -121,8 +122,9 @@
 						  <input type="text" class="form-control" name="searchWord" value="${searchWord }">
 					  </div>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3">
 					  <button type="submit" class="btn btn-outline-secondary">검색</button>
+					  <a href="/board/insertForm"><button type="button" class="btn btn-outline-danger">글 등록</button></a>
 					</div>
 				</form>
 			  </div>
@@ -167,28 +169,8 @@
                 </table>
               </div>
             </div>
-			<nav aria-label="Page navigation example">
-			  <ul class="pagination justify-content-center">
-				<li class="page-item disabled">
-				  <a class="page-link" href="javascript:;" tabindex="-1">
-					<span class="material-icons">
-					  keyboard_arrow_left
-					</span>
-					<span class="sr-only">Previous</span>
-				  </a>
-				</li>
-				<li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
-				<li class="page-item active"><a class="page-link" href="javascript:;">2</a></li>
-				<li class="page-item"><a class="page-link" href="javascript:;">3</a></li>
-				<li class="page-item">
-				  <a class="page-link" href="javascript:;">
-					<span class="material-icons">
-					  keyboard_arrow_right
-					</span>
-					<span class="sr-only">Next</span>
-				  </a>
-				</li>
-			  </ul>
+			<nav aria-label="Page navigation example" id="pagingArea">
+				${pagingVO.pagingHTML}
 			</nav>
           </div>
         </div>
@@ -258,5 +240,17 @@
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-dashboard.min.js?v=3.0.4"></script>
 </body>
-
+<script type="text/javascript">
+$(function(){
+	var searchForm = $("#searchForm");
+	var pagingArea = $("#pagingArea");
+	
+	pagingArea.on("click", "a", function(event){
+		event.preventDefault();
+		var pageNo = $(this).data("page");
+		searchForm.find("#page").val(pageNo);
+		searchForm.submit();
+	})
+})
+</script>
 </html>

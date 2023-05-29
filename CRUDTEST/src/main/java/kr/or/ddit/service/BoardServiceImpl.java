@@ -57,4 +57,16 @@ public class BoardServiceImpl implements IBoardService {
 		return result;
 	}
 
+	@Override
+	public ServiceResult insertBoard(BoardVO board) {
+		ServiceResult result = null;
+		int status = dao.insertBoard(board);
+		if(status > 0) {
+			result = ServiceResult.OK;
+		} else {
+			result = ServiceResult.FAILED;
+		}
+		return result;
+	}
+
 }

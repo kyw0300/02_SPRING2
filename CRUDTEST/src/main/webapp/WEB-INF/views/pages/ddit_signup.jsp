@@ -45,20 +45,20 @@
                 <div class="card-body">
                   <form action="/member/signup" method="post" role="form" name="signupForm">
                     <div class="input-group input-group-outline mb-3">
-                      <label class="form-label">아이디</label>
-                      <input type="text" class="form-control" name="memId" value="${memberVO.memId }">
+<!--                       <label class="form-label">아이디</label> -->
+                      <input type="text" class="form-control" name="memId" value="${memberVO.memId }" placeholder="아이디">
                     </div>
                     <div class="input-group input-group-outline mb-3">
-                      <label class="form-label">비밀번호</label>
-                      <input type="text" class="form-control" name="memPw" value="${memberVO.memPw }">
+<!--                       <label class="form-label la">비밀번호</label> -->
+                      <input type="password" class="form-control signup" name="memPw" value="${memberVO.memPw }" placeholder="비밀번호">
                     </div>
                     <div class="input-group input-group-outline mb-3">
-                      <label class="form-label">비밀번호 재입력</label>
-                      <input type="text" class="form-control" name="memPw2">
+<!--                       <label class="form-label la">비밀번호 재입력</label> -->
+                      <input type="password" class="form-control signup" name="memPw2" placeholder="비밀번호 재입력">
                     </div>
 					<div class="input-group input-group-outline mb-3">
-                      <label class="form-label">이름</label>
-                      <input type="text" class="form-control" name="memName" value="${memberVO.memName }">
+<!--                       <label class="form-label">이름</label> -->
+                      <input type="text" class="form-control" name="memName" value="${memberVO.memName }" placeholder="이름">
                     </div>
 					<div class="form-check mb-3">
 					  <input class="form-check-input" type="radio" name="memGender" id="customRadio1" value="M" checked>
@@ -67,12 +67,12 @@
 					  <label class="custom-control-label" for="customRadio1">여자</label>
 					</div>
 					<div class="input-group input-group-outline mb-3">
-                      <label class="form-label">핸드폰번호</label>
-                      <input type="text" class="form-control" name="memPhone" value="${memberVO.memPhone }">
+<!--                       <label class="form-label">핸드폰번호</label> -->
+                      <input type="text" class="form-control" name="memPhone" value="${memberVO.memPhone }" placeholder="핸드폰번호">
                     </div>
 					<div class="input-group input-group-outline mb-3">
-                      <label class="form-label">이메일</label>
-                      <input type="text" class="form-control" name="memEmail" value="${memberVO.memEmail }">
+<!--                       <label class="form-label">이메일</label> -->
+                      <input type="text" class="form-control" name="memEmail" value="${memberVO.memEmail }" placeholder="이메일">
                     </div>
                     <div class="form-check form-switch">
 					  <input class="form-check-input" type="checkbox" id="agreeCheck" name="memAgree" value="agree">
@@ -125,6 +125,25 @@
 // // 	alert(data.val);
 // 	})
 // })
+
+
+// var signup = document.querySelector(".signup");
+// var label = document.querySelector(".la");
+
+// console.log(signup);
+// console.log(label);
+
+// signup.addEventListener("keydown", disLabel);
+
+// function disLabel(){
+// 	label.setAttribute("style", "display:none;");
+// 	console.log("까꿍");
+// }
+
+// signup.keydown(function(){
+// 	label.setAttribute("style", "display:none;");
+// })
+
 function CheckSignup(){
 	var form = document.signupForm;
 	var checkbox = document.getElementById('agreeCheck');

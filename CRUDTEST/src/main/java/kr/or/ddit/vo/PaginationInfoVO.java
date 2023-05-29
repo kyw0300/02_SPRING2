@@ -1,4 +1,3 @@
-
 package kr.or.ddit.vo;
 
 import java.util.List;
@@ -137,11 +136,13 @@ public class PaginationInfoVO<T> {
 		StringBuffer html = new StringBuffer();
 		
 		// 부트스트랩을 이용하던 여서 css요소를 이용해서 페이징 UI를 구현하는 곳입니다!
-		html.append("<ul class='pagination pagination-sm m-0 float-right'>");
+		html.append("<ul class='pagination justify-content-center'>");
 		
 		if(startPage > 1) {
-			html.append("<li class='page-item'><a href='' class='page-link' data-page='"
-					+(startPage - blockSize)+"'>Prev</a></li>");
+			html.append("<li class='page-item'><a href='' class='page-link' data-page='"+(startPage - blockSize)+"' tabindex='-1'>"
+					+ "<span class='material-icons'>keyboard_arrow_left</span>"
+					+ "<span class='sr-only'>Previous</span>"
+					+ "</a></li>");
 		}
 		
 		for(int i=startPage; i<=(endPage < totalPage ? endPage : totalPage); i++ ) {
@@ -155,10 +156,14 @@ public class PaginationInfoVO<T> {
 		}
 		
 		if(endPage < totalPage) {
-			html.append("<li class='page-item'><a href='' class='page-link' data-page='"
-					+ (endPage + 1) + "'>Next</a></li>");
+			html.append("<li class='page-item'><a href='' class='page-link' data-page='"+(endPage + 1)+"'>"
+					+ "<span class='material-icons'>keyboard_arrow_right</span>"
+					+ "<span class='sr-only'>Next</span>"
+					+ "</a></li>");
 		}
 		html.append("</ul>");
+		
+		
 		
 		return html.toString();
 	}

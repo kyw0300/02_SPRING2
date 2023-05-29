@@ -1,8 +1,12 @@
 package kr.or.ddit.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -10,10 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.ddit.ServiceResult;
 import kr.or.ddit.service.IBoardService;
 import kr.or.ddit.vo.BoardVO;
+import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.PaginationInfoVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -93,26 +99,66 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(BoardVO board) {
+	public String update(BoardVO board, RedirectAttributes redirectattribute) {
 		log.info("update() 실행...!");
-		log.info("boNo : " + boNo);
 		String goPage = "";
+		String msg = "";
 		ServiceResult result = service.updateBoard(board);
 		
 		if(result.equals(ServiceResult.OK)) {
-			goPage = "redirect:/board/detail?boNo="+boNo;
+			msg = "수정이 완료되었습니다!";
+			goPage = "redirect:/board/detail?boNo="+board.getBoNo();
 		} else {
-			goPage = "redirect:/board/updateForm?boNo="+boNo;
+			msg = "수정을 실패하였습니다!";
+			goPage = "redirect:/board/updateForm?boNo="+board.getBoNo();
 		}
-		
+		redirectattribute.addFlashAttribute("msg", msg);
 		return goPage;
 	}
 	
 	
-	@RequestMapping(value = "/form", method = RequestMethod.GET)
-	public String form() {
-		
+	@RequestMapping(value = "/insertForm", method = RequestMethod.GET)
+	public String insertForm() {
+		log.info("insertForm() 실행...!");
 		return "pages/ddit_form";
+	}
+	
+	
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public String insert(BoardVO board, Model model, HttpServletRequest request, RedirectAttributes redirectattribute) {
+		log.info("insert() 실행...!");
+		HttpSession session = request.getSession();
+		MemberVO loginMem = (MemberVO) session.getAttribute("member");
+		String boWriter = loginMem.getMemId();
+		
+		String goPage = "";
+		String msg = "";
+		
+		Map<String, Object> errors = new HashMap<String, Object>();
+		if(StringUtils.isBlank(board.getBoTitle())) {
+			errors.put("boTitle", "제목을 입력해주세요!");
+		}
+		if(StringUtils.isBlank(board.getBoContent())) {
+			errors.put("boContent", "내용을 입력해주세요!");
+		}
+		
+		if(errors.size() > 0) {
+			model.addAttribute("error","누락된 입력 정보가 존재합니다!");
+			model.addAttribute("boardVO", board);
+			goPage = "/board/insertForm";
+		} else {
+			board.setBoWriter(boWriter);
+			ServiceResult result = service.insertBoard(board);
+			if(result.equals(ServiceResult.OK)) {
+				msg = "글 등록이 완료되었습니다!";
+				goPage = "redirect:/board/list";
+			} else {
+				msg = "글 등록 실패!";
+				goPage = "redirect:/board/insertForm";
+			}
+		}
+		redirectattribute.addFlashAttribute("msg", msg);
+		return goPage;
 	}
 	
 }

@@ -30,10 +30,6 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<!-- 
-		한글 처리를 위한 UTF-8 필터 등록
-		JSP나 서블릿 처리할때마다 넘겨받은 request, response를 setEncoding으로 UTF-8 설정했던 걸 필터로 대체
-	 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

@@ -19,4 +19,6 @@ public interface IBoardDAO {
 
 	int updateBoard(BoardVO board);
 
+	int insertBoard(BoardVO board);
+
 }

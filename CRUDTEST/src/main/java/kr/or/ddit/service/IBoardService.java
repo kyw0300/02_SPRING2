@@ -18,5 +18,7 @@ public interface IBoardService {
 
 	ServiceResult updateBoard(BoardVO board);
 
+	ServiceResult insertBoard(BoardVO board);
+
 
 }
