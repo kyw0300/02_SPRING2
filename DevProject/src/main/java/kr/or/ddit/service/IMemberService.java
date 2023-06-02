@@ -12,4 +12,8 @@ public interface IMemberService {
 
 	MemberVO read(int userNo);
 
+	void modify(MemberVO member);
+
+	void remove(int userNo);
+
 }
