@@ -1,14 +1,19 @@
 package kr.or.ddit.controller.noticeboard.web;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.controller.noticeboard.service.INoticeService;
 import kr.or.ddit.vo.NoticeVO;
+import kr.or.ddit.vo.PaginationInfoVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -19,9 +24,34 @@ public class NoticeRetrieveController {
 	@Inject
 	private INoticeService noticeService;
 
-	@GetMapping("/list.do")
-	public String noticeList() {
+	@RequestMapping("/list.do")
+	public String noticeList(
+			@RequestParam(name="page", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(required = false, defaultValue = "title") String searchType,
+			@RequestParam(required = false) String searchWord,
+			Model model
+			) {
 		log.info("noticeList() 실행...!");
+		
+		PaginationInfoVO<NoticeVO> pagingVO = new PaginationInfoVO<NoticeVO>();
+		
+		// 검색기능 추가 시 활용
+		if(StringUtils.isNoneBlank(searchWord)) {
+			pagingVO.setSearchType(searchType);
+			pagingVO.setSearchWord(searchWord);
+			model.addAttribute("searchType", searchType);
+			model.addAttribute("searchWord", searchWord);
+		}
+		
+		pagingVO.setCurrentPage(currentPage); // startRow, endRow, startPage, endPage가 결정!
+		int totalRecord = noticeService.selectNoticeCount(pagingVO);
+		pagingVO.setTotalRecord(totalRecord);
+		
+		List<NoticeVO> dataList = noticeService.selectNoticeList(pagingVO);
+		pagingVO.setDataList(dataList);
+		
+		model.addAttribute("pagingVO", pagingVO);
+		
 		return "notice/list";
 	}
 	
