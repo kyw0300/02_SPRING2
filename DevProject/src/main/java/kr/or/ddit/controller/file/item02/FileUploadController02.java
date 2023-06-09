@@ -118,7 +118,7 @@ public class FileUploadController02 {
 			
 			String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 			
-			if(i == 0) { // 첫번째 url정보
+			if(i == 0) { 		// 첫번째 url정보
 				item.setPictureUrl(savedName);
 			} else if(i == 1) {	// 두번째 url정보
 				item.setPictureUrl2(savedName);
