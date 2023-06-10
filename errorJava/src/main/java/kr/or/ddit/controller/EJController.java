@@ -15,6 +15,6 @@ public class EJController {
 	
 	@GetMapping("/index")
 	public String index() {
-		return "index";
+		return "index/content";
 	}
 }

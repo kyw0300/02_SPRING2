@@ -3,13 +3,19 @@
 <!-- Tiles 설정 -->
 <tiles-definitions>
 	
-	<!-- index.jsp와 name='index' 이름 같아야함 -->
-	<definition name="index" template="/WEB-INF/views/index.jsp">
+	<!-- indexTemplate.jsp와 name='indexTemplate' 이름 같아야함 -->
+	<definition name="indexTemplate" template="/WEB-INF/views/indexTemplate.jsp">
 
-		<put-attribute name="nav-header" value="/WEB-INF/views/tiles/nav-header.jsp"/>
-		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp"/>
+		<put-attribute name="nav-header" value="/WEB-INF/views/tiles/index/nav-header.jsp"/>
+		<put-attribute name="header" value="/WEB-INF/views/tiles/index/header.jsp"/>
+		<put-attribute name="chatbox" value="/WEB-INF/views/tiles/index/chatbox.jsp"/>
+		<put-attribute name="sidebar" value="/WEB-INF/views/tiles/index/sidebar.jsp"/>
 		
-		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/index/footer.jsp"/>
+	</definition>
+	
+	<definition name="index/*" extends="indexTemplate">
+		<put-attribute name="content" value="/WEB-INF/views/indexContent/{1}.jsp"/>
 	</definition>
 	
 </tiles-definitions>
