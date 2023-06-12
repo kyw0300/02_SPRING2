@@ -43,9 +43,8 @@
 			> Servlet 3.0의 Part를 이용한 MultipartFile 데이터 처리
 	 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-	
 	</beans:bean>
 	
-	<context:component-scan base-package="kr.or.ddit" />
+	<context:component-scan base-package="kr.or.ddit.controller" />
 	
 </beans:beans>
