@@ -21,8 +21,10 @@ import kr.or.ddit.vo.DDITMemberVO;
 import kr.or.ddit.vo.NoticeFileVO;
 import kr.or.ddit.vo.NoticeVO;
 import kr.or.ddit.vo.PaginationInfoVO;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class NoticeServiceImpl implements INoticeService {
 	
 	@Inject
@@ -96,7 +98,6 @@ public class NoticeServiceImpl implements INoticeService {
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
-			
 			result = ServiceResult.OK;
 		} else {
 			result = ServiceResult.FAILED;
@@ -127,6 +128,7 @@ public class NoticeServiceImpl implements INoticeService {
 				
 				// \resources\notice\{bo_no}/... 형태를 알고 있기에 filePath[0]로 설정 가능
 				String path = filePath[0];
+				log.info("path : " + path);
 				deleteFolder(req, path);
 			}
 			

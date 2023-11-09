@@ -18,7 +18,7 @@ public class UploadFileUtils {
 		UUID uuid = UUID.randomUUID();
 		String savedName = uuid.toString() + "_" + originalName;
 		
-		// 2023/06/07 폴더 경로를 만들고, /2023/03/07 폴더 경로를 리턴한다.
+		// 2023/06/07 폴더 경로를 만들고, /2023/06/07 폴더 경로를 리턴한다.
 		String savedPath = calcPath(uploadPath);
 		File target = new File(uploadPath + savedPath, savedName);
 		FileCopyUtils.copy(fileData, target);  // 위에서 만들어진 경로와 파일명을 가지고 파일 복사를 진행한다.

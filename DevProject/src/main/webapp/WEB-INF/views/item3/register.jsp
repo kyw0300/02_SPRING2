@@ -91,8 +91,9 @@ $(function(){
 			dataType: "text",
 			processData: false,
 			contentType: false,
+			beforeSend : function(xhr){xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}"); },
 			success: function(data){
-				console.log(data);	// 결과 출력(확인용)
+				console.log("data", data);	// 결과 출력(확인용)
 				
 				var str = "";
 				if(checkImageType(data)){	// 이미지면 이미지 태그를 이용하여 출력
